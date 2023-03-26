@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>The Odin Project - Project #3 - Rock, Paper, Scissors</title>
+</head>
+
+<body>
+<script>
+function computerPlay() {
+// generates a random integer from the range [0,2]
+	let randomNumber = Math.floor(Math.random() * 3);
+// returns a random number-assisted computer choice for the game
+	switch (randomNumber) {
+        case (0):
+            return 'Rock';
+        case (1):
+            return 'Paper';
+        case (2):
+            return 'Scissors';
+    };
+}
+
+function userPlay() {
+	let userChoice = prompt("Choose one of three values - Rock, Paper or Scissors - and enter it below:", "Make your choice...");
+	return userChoice;
+}
+
+function playRound(playerSelection, computerSelection) {
+// case insensitive playerSelection
+	playerSelection = playerSelection[0].toUpperCase() + (playerSelection.slice(1)).toLowerCase();
+// prints respective choices of the user and of the computer
+	console.log(`Your choice: ${playerSelection}`);
+	console.log(`Computer choice: ${computerSelection}`);
+// determining the winner of the round, given the values of playerSelection and computerSelection
+	if (playerSelection === computerSelection) {
+		computerScore++;
+		playerScore++;
+		return ("It's a tie!");
+	} else if (playerSelection === "Rock" && computerSelection === "Scissors") {
+		playerScore++;
+		return ("You win this round! Rock beats Scissors!");
+	} else if (playerSelection === "Paper" && computerSelection === "Rock") {
+		playerScore++;
+		return ("You win this round! Paper beats Rock");
+	} else if (playerSelection === "Scissors" && computerSelection === "Paper") {
+		playerScore++;
+		return ("You win this round! Scissors beat Paper");
+	} else if (playerSelection === "Rock" && computerSelection === "Paper") {
+		computerScore++;
+		return ("You lose this round! Paper beats Rock!");
+	} else if (playerSelection === "Paper" && computerSelection === "Scissors") {
+		computerScore++;
+		return ("You lose this round! Scissors beat Paper");
+	} else if (playerSelection === "Scissors" && computerSelection === "Rock") {
+		computerScore++;
+		return ("You lose this round! Rock beats Scissors");
+	}
+}
+
+function whoIsTheWinner(computerScore, playerScore) {
+	if (computerScore < playerScore) {
+        console.log(`You win the game! Overall, ${playerScore} points for you, ${computerScore} points for the computer!`);
+	} else if (computerScore > playerScore) {
+        console.log(`You lose the game! Overall, ${playerScore} points for you, ${computerScore} points for the computer!`);
+	} else {
+        console.log(`Hmm, it's a tie! ${playerScore} points for both you and the computer!`);
+	}
+}
+
+function game() {
+    console.log("WELCOME TO THE 5-ROUND GAME OF ROCK, PAPER, SCISSORS!");
+    for (let i = 0; i < 5; i++) {
+        console.log(`ROUND #${i+1}\n\n`)
+        const playerSelection = userPlay();
+        const computerSelection = computerPlay();
+        console.log(playRound(playerSelection, computerSelection));
+    }
+	whoIsTheWinner(computerScore, playerScore);
+}
+
+let computerScore = 0;
+let playerScore = 0;
+
+game();
+
+</script> 
+</body>
+</html>
